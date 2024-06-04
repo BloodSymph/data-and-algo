@@ -1,11 +1,8 @@
 package org.example.datastructures;
 
-public final class MyHashTable<K, V> {
+import java.util.Arrays;
+import java.util.LinkedList;
 
-
-
-    private static class Node<V>{
-
-    }
+public final class MyHashTable<T> {
 
 }
