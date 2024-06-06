@@ -16,6 +16,18 @@ public final class AVLTree {
         node.height = Math.max(getHeight(node.left), getHeight(node.right));
     }
 
+    private Node getMax(Node node) {
+        if (node == null) return null;
+        if (node.right == null) return node;
+        return getMax(node.right);
+    }
+
+    private Node getMin(Node node) {
+        if (node == null) return null;
+        if (node.left == null) return null;
+        return getMin(node.left);
+    }
+
     private int getBalance(Node node) {
         return (node == null) ? 0: getHeight(node.right) - getHeight(node.left);
     }
@@ -60,6 +72,52 @@ public final class AVLTree {
         }
     }
 
+    private Node insert(Node node, int value) {
+        if (node == null ){
+            node = new Node(value);
+        }
+        if (value < node.value) {
+            if (node.left == null) node.left = new Node(value);
+            else insert(node.left, value);
+        }
+        else if (value > node.value) {
+            if (node.right == null) node.right = new Node(value);
+            else insert(node.right, value);
+        }
+        updateHeight(node);
+        balance(node);
+        return node;
+    }
+
+    private Node delete(Node node, int value) {
+        if (node == null) return null;
+        else if (value < node.value) {
+            node.left = delete(node.left, value);
+        } else if (value > node.value) {
+            node.right = delete(node.right, value);
+        } else {
+            if (node.left == null || node.right == null) {
+                node = (node.left == null) ? node.right: node.left;
+            } else {
+                Node maxLnLeft = getMax(node.right);
+                node.value = maxLnLeft.value;
+                node.right = delete(node.right, maxLnLeft.value);
+            }
+        }
+        if (node != null) {
+            updateHeight(node);
+            balance(node);
+        }
+        return node;
+    }
+
+    public void insert(int value) {
+        root = insert(root, value);
+    }
+
+    public void delete(int value) {
+        insert(root, value);
+    }
 
 
     private static class Node {

@@ -18,7 +18,6 @@ public final class BinarySearchTree {
         } else if (value > current.value) {
             current.right = addNode(current.right, value);
         } else {
-            // value already exists
             return current;
         }
 
