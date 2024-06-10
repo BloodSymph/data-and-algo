@@ -3,53 +3,37 @@ package org.example.datastructures;
 import java.util.*;
 
 public final class Graph {
+    private Map<String, List<String>> adjacentList;
 
-    private List<List<Node>> adjacentList = new ArrayList<>();
+    public Graph() {
+        this.adjacentList = new HashMap<>();
+    }
 
-    public Graph(List<Edge> edges) {
-        for (int i = 0; i < edges.size(); i++) {
-            adjacentList.add(i, new ArrayList<>());
-            
-        }
-        for (Edge edge : edges) {
-            adjacentList.get(edge.src).add(new Node(edge.dest, edge.weight));
+    public void addVertex(String vertex) {
+        if (!adjacentList.containsKey(vertex)) {
+            adjacentList.put(vertex, new ArrayList<>());
         }
     }
 
-    public static void printGraph(Graph graph)  {
-        int src_vertex = 0;
-        int list_size = graph.adjacentList.size();
+    public void addEdge(String vertex1, String vertex2) {
+        if (!adjacentList.containsKey(vertex1)) {
+            addVertex(vertex1);
+        }
+        if (!adjacentList.containsKey(vertex2)) {
+            addVertex(vertex2);
+        }
+        adjacentList.get(vertex1).add(vertex2);
+        adjacentList.get(vertex2).add(vertex1);
+    }
 
-        System.out.println("The contents of the graph:");
-        while (src_vertex < list_size) {
-            for (Node edge : graph.adjacentList.get(src_vertex)) {
-                System.out.print("Vertex:" + src_vertex + " ==> " + edge.value +
-                        " (" + edge.weight + ")\t");
+    public void printGraph() {
+        for (String vertex : adjacentList.keySet()) {
+            System.out.println(vertex + ": ");
+            for (String neighbor : adjacentList.get(vertex)) {
+                System.out.println(neighbor + " ");
             }
             System.out.println();
-            src_vertex++;
         }
     }
 
-    public static class Node {
-        private int value;
-        private int weight;
-
-        public Node(int value, int weight) {
-            this.value = value;
-            this.weight = weight;
-        }
-    }
-
-    public static class Edge {
-        private int src;
-        private int dest;
-        private int weight;
-
-        public Edge(int src, int dest, int weight) {
-            this.src = src;
-            this.dest = dest;
-            this.weight = weight;
-        }
-    }
 }
