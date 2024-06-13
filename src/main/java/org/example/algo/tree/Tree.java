@@ -1,5 +1,9 @@
 package org.example.algo.tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
 public final class Tree {
 
     private Node root;
@@ -99,13 +103,53 @@ public final class Tree {
     //Прямой
     private void copy(Node node) {
         if (node == null) return;
+        System.out.println(node.value);
         copy(node.left);
         copy(node.right);
-        System.out.println(node.value);
     }
 
+    //Горизонтальный
+    private void horizontal(Node node) {
+        Queue<Node> nodeQueue = new LinkedList<>();
+        do {
+            System.out.println(node.value);
+            if (node.left != null) nodeQueue.add(node);
+            if (node.right != null) nodeQueue.add(node);
+            if (!nodeQueue.isEmpty()) node = nodeQueue.poll();
+        } while (!nodeQueue.isEmpty());
+    }
 
+    //Вертикальный обход
+    private void vertical(Node node) {
+        Stack<Node> stack = new Stack<>();
+        while (node != null || stack.empty()) {
+            if (!stack.empty()) {
+                node = stack.pop();
+            }
+            while (node != null) {
+                System.out.println(node.value);
+                if (node.right != null) stack.push(node.right);
+                node = node.left;
+            }
+        }
+    }
 
+    //Вертикальный обратный обход
+    private void reverseVertical(Node node) {
+        Stack<Node> stack = new Stack<>();
+        while (node != null || stack.empty()) {
+            if (!stack.empty()) {
+                node = stack.pop();
+                System.out.println(node.value);
+                if (node.right != null) node = node.right;
+                else node = null;
+            }
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+        }
+    }
 
     public void delete(int value) {
         recursiveDelete(root, value);
