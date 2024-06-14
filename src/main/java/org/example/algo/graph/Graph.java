@@ -99,5 +99,22 @@ public final class Graph {
         System.out.println();
     }
 
+    public void bfsRecursive(String startVertex) {
+        Set<String> visited = new HashSet<>();
+        bfsRecursiveHelper(startVertex, visited);
+        System.out.println();
+    }
+
+    private void bfsRecursiveHelper(String vertex, Set<String> visited) {
+        if (visited.contains(vertex)) {
+            return;
+        }
+        visited.add(vertex);
+        System.out.print(vertex + " ");
+
+        for (String neighbor : adjacentList.get(vertex)) {
+            bfsRecursiveHelper(neighbor, visited);
+        }
+    }
 
 }
