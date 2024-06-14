@@ -2,17 +2,19 @@ package org.example.datastructures;
 
 import java.net.StandardSocketOptions;
 import java.util.Objects;
-
+//Реализация очереди FIFO
 public final class MyQueue<T> {
 
     private T[] elements;
 
     private int front;
 
+    //Колличевство елементов очереди
     private int capacity;
 
     private int back;
 
+    //Инициализация очереди
     public MyQueue(int capacity) {
         this.capacity = capacity;
         this.front = -1;
@@ -20,14 +22,17 @@ public final class MyQueue<T> {
         this.elements = null;
     }
 
+    // Очередь пуста
     public boolean isEmpty() {
         return front == -1 && back == -1;
     }
 
+    // Очередь переполнена
     public boolean isFull() {
         return back == capacity -1;
     }
 
+    //Добавление єлемента в очередь
     public void enqueue(T element) {
         if (isFull()) {
             throw new  RuntimeException("Queue is full!");
@@ -39,6 +44,7 @@ public final class MyQueue<T> {
         }
     }
 
+    //Извлечение єлементов из очереди
     public T dequeue() {
         if (isEmpty()) {
             throw new RuntimeException("Queue is empty!");
@@ -48,6 +54,7 @@ public final class MyQueue<T> {
         return elements[front++];
     }
 
+    //Отображение очереди
     public void display() {
         int i = 0;
         if (isEmpty()) {
@@ -59,6 +66,7 @@ public final class MyQueue<T> {
         }
     }
 
+    // Взять один єлемент из очереди
     public void peek() {
         System.out.println("Front value: " + elements[front]);
     }
