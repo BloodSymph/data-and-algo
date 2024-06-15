@@ -1,3 +1,5 @@
+package org.example.algo.graph;
+
 import java.util.*;
 
 public final class Graph1 {
