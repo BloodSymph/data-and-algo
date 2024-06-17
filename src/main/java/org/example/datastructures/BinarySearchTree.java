@@ -78,8 +78,8 @@ public final class BinarySearchTree {
     private Node getMin(Node node) {
         //Если нода равна null возвращаем null;
         if (node == null) return null;
-        //Если левая ветвь равна null возвращаем ноду
-        if (node.left == null) return node;
+        //Если левая ветвь равна null возвращаем null
+        if (node.left == null) return null;
         //Рекурсивно возвращаем эту функцию передавая левую ветвь
         return getMin(node.left);
     }
